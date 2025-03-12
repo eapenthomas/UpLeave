@@ -1,0 +1,140 @@
+
+"""# This function adds two numbers
+def add(x, y):
+    return x + y
+
+# This function subtracts two numbers
+def subtract(x, y):
+    return x - y
+
+# This function multiplies two numbers
+def multiply(x, y):
+    return x * y
+
+# This function divides two numbers
+def divide(x, y):
+    return x / y
+
+
+print("Select operation.")
+print("1.Add")
+print("2.Subtract")
+print("3.Multiply")
+print("4.Divide")
+
+while True:
+    # take input from the user
+    choice = input("Enter choice(1/2/3/4): ")
+
+    # check if choice is one of the four options
+    if choice in ('1', '2', '3', '4'):
+        try:
+            num1 = float(input("Enter first number: "))
+            num2 = float(input("Enter second number: "))
+        except ValueError:
+            print("Invalid input. Please enter a number.")
+            continue
+
+        if choice == '1':
+            print(num1, "+", num2, "=", add(num1, num2))
+
+        elif choice == '2':
+            print(num1, "-", num2, "=", subtract(num1, num2))
+
+        elif choice == '3':
+            print(num1, "*", num2, "=", multiply(num1, num2))
+
+        elif choice == '4':
+            print(num1, "/", num2, "=", divide(num1, num2))
+        
+        # check if user wants another calculation
+        # break the while loop if answer is no"""
+
+"""num = int(input("Enter a number: "))    
+factorial = 1    
+if num < 0:    
+   print(" Factorial does not exist for negative numbers")    
+elif num == 0:    
+   print("The factorial of 0 is 1")    
+else:    
+   for i in range(1,num + 1):    
+       factorial = factorial*i    
+   print("The factorial of",num,"is",factorial)    """
+
+"""""def decimal_to_binary_octal(decimal_number):
+    binary_representation = bin(decimal_number)
+    octal_representation = oct(decimal_number)
+
+    return binary_representation, octal_representation
+
+# Get user input for decimal number
+decimal_number = int(input("Enter a decimal number: "))
+
+# Convert and display the binary and octal representations
+binary, octal = decimal_to_binary_octal(decimal_number)
+print(f"Binary representation: {binary}")
+print(f"Octal representation: {octal}")
+"""
+
+        
+"""# Python program to find the largest
+def find_maximum(a, b, c):
+    return max(a, b, c)
+
+# Get user input for three numbers
+num1 = int(input("Enter the first number: "))
+num2 = int(input("Enter the second number: "))
+num3 = int(input("Enter the third number: "))
+
+# Find and display the maximum
+maximum_number = find_maximum(num1, num2, num3)
+print("The maximum number is:" ,maximum_number)"""""
+
+
+"""def my_function(x):
+  return x[::-1]
+txt = my_function("Python")
+print(txt)"""
+
+"""def generate_squares_list():
+    squares_list = [x**2 for x in range(1, 21)]
+    return squares_list
+# Generate and print the squares list
+squares_result = generate_squares_list()
+print("List of squares of numbers from 1 to 20:")
+print(squares_result)"""
+
+"""def cube_sum_of_natural_numbers(n):
+    cube_sum = sum(i**3 for i in range(1, n + 1))
+    return cube_sum
+
+# Get user input for 'n'
+n = int(input("Enter the value of 'n': "))
+
+# Calculate and display the cube sum
+result = cube_sum_of_natural_numbers(n)
+print("The cube sum of the first" ,n, "natural numbers is:" ,result)"""
+
+
+"""# Get user input for a character
+character = input("Enter a character: ")
+
+# Convert the character to ASCII and display the result
+ascii_value = ord(character)
+print("The ASCII value of",character," is: ",ascii_value)"""
+
+
+
+def decimal_to_binary_octal(decimal_number):
+    binary_representation = "{0:b}".format(decimal_number)
+    octal_representation = "{0:o}".format(decimal_number)
+
+    return binary_representation, octal_representation
+
+# Get user input for decimal number
+decimal_number = int(input("Enter a decimal number: "))
+
+# Convert and display the binary and octal representations
+binary, octal = decimal_to_binary_octal(decimal_number)
+print(f"Binary representation: {binary}")
+print(f"Octal representation: {octal}")

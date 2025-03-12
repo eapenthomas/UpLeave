@@ -1,0 +1,75 @@
+			Asssesment-5
+1. Program to create a new file.
+filesample = "new_file.txt"
+with open(filesample, 'w') as file:
+    file.write("This is a new file!")
+print("New file has been created.")
+New file has been created.
+
+2. Program to write data to file. 
+
+newfile = "data_file.txt"
+with open(newfile, 'w') as file:
+    file.write("Hello, hii!!!.")
+
+3. Append contents to file.
+
+f1 = "data_file.txt"
+with open(f1, 'a') as file:
+    file.write("Appending data to the file.")
+
+4. Read content of the file using readline()
+
+file1 = "data_file.txt"
+with open(file1, 'r') as file:
+    line = file.readline()
+    while line:
+        print(line.strip())  
+        line = file.readline()
+
+5. Python program to read first N characters from each line.
+
+file1 = "data_file.txt"
+n = 10
+with open(file1, 'r') as file:
+    for line in file:
+        first_n_characters = line[:n]
+        print(first_n_characters)
+
+6. Python program to read character by character from a file.
+
+file1 = "data_file.txt"
+with open(file1, 'r') as file:
+    char = file.read(1)
+    while char:
+        print(char, end='')  
+        char = file.read(1)
+
+7. Program to delete a file.
+
+import os
+file1 = "file_to_delete.txt"
+if os.path.exists(file1):
+    os.remove(file1)
+    print("The file has been deleted.")
+else:
+    print("The file does not exist.")
+
+The file has been deleted.
+
+8. Append content of one text file to another
+
+sourcef = "source_file.txt"
+dest = "destination_file.txt"
+with open(sourcef, 'r') as source:
+    content_to_append = source.read()
+    with open(dest, 'a') as destination:
+        destination.write(content_to_append)
+
+9. Count number of lines in a text file
+
+file1 = "example.txt"
+with open(file1, 'r') as file:
+    lines = file.readlines()
+number_of_lines = len(lines)
+
