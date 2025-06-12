@@ -1,297 +1,327 @@
-<!DOCTYPE html>
-<html lang="en">
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: Jun 11, 2025 at 05:56 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Update Profile</title>
-
-    <link rel="stylesheet" href="assets/css/bootstrap.css">
-
-    <script defer src="assets/fontawesome/js/all.min.js"></script>
-    <link rel="stylesheet" href="assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
-    <link rel="stylesheet" href="assets/css/app.css">
-</head>
-
-<body>
-    <div id="app">
-        <div id="sidebar" class='active'>
-            <div class="sidebar-wrapper active">
-                <div class="sidebar-header" style="height: 50px;margin-top: -30px">
-                    <i class="fa fa-users text-success me-4"></i>
-                    <span id="span01" style="font-size: smaller;">UPLeave</span>
-                </div>
-                <div class="sidebar-menu">
-                    <ul class="menu">
-                        <li class="sidebar-item ">
-                            <a href="employee.php" class='sidebar-link'>
-                                <i class="fa fa-home text-success"></i>
-                                <span>Dashboard</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="apply_leave.php" class='sidebar-link'>
-                                <i class="fa fa-plane text-success"></i>
-                                <span>Apply Leave</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item ">
-                            <a href="leave_status.php" class='sidebar-link'>
-                                <i class="fa fa-plane text-success"></i>
-                                <span>Leave Status</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
-            </div>
-        </div>
-        <div id="main">
-            <nav class="navbar navbar-header navbar-expand navbar-light">
-                <a class="sidebar-toggler" href="#"><span class="navbar-toggler-icon"></span></a>
-                <button class="btn navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav d-flex align-items-center navbar-light ms-auto">
-                        <li class="dropdown">
-                            <a href="#" data-bs-toggle="dropdown"
-                                class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-                                <div class="avatar me-1">
-                                    <img src="assets/images/admin.png" alt="" srcset="">
-                                </div>
-                                <div class="d-none d-md-block d-lg-inline-block">Hi, Employee</div>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end">
-                                <a class="dropdown-item" href="update.html"><i data-feather="user"></i> Account</a>
-                                <a class="dropdown-item" href="update_password.html"><i data-feather="settings"></i>
-                                    Settings</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="logout.php"><i data-feather="log-out"></i> Logout</a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-
-            <div class="main-content container-fluid">
-                <div class="page-title">
-                    <div class="row">
-                        <div class="col-12 col-md-6 order-md-1 order-last">
-                            <h3>Update Profile</h3>
-                        </div>
-                        <div class="col-12 col-md-6 order-md-2 order-first">
-                            <nav aria-label="breadcrumb" class='breadcrumb-header'>
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="employee.php"
-                                            class="text-success">Dashboard</a>
-                                    </li>
-                                    <li class="breadcrumb-item active" aria-current="page">Update Profile</li>
-                                </ol>
-                            </nav>
-                        </div>
-                    </div>
-
-                </div>
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
 
 
-                <!-- // Basic multiple Column Form section start -->
-                <section id="multiple-column-form">
-                    <div class="row match-height">
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-content">
-                                    <div class="card-body">
-                                        <form class="form">
-                                            <div class="row">
-                                                <div class="col-md-6 col-12">
-                                                    <div class="form-group has-icon-left">
-                                                        <label for="first-name-icon">ID Number</label>
-                                                        <div class="position-relative">
-                                                            <input type="text" class="form-control"
-                                                                placeholder="id number" id="first-name-icon"
-                                                                value="123456">
-                                                            <div class="form-control-icon">
-                                                                <i class="fa fa-hash"></i>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6 col-12">
-                                                    <div class="form-group has-icon-left">
-                                                        <label for="first-name-icon">Gender</label>
-                                                        <div class="position-relative">
-                                                            <fieldset class="form-group">
-                                                                <select class="form-select" id="basicSelect">
-                                                                    <option>Male</option>
-                                                                    <option>Female</option>
-                                                                </select>
-                                                            </fieldset>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4 col-12">
-                                                    <div class="form-group has-icon-left">
-                                                        <label for="first-name-icon">First Name</label>
-                                                        <div class="position-relative">
-                                                            <input type="text" class="form-control"
-                                                                placeholder="first name" id="first-name-icon"
-                                                                value="John">
-                                                            <div class="form-control-icon">
-                                                                <i class="fa fa-user"></i>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4 col-12">
-                                                    <div class="form-group has-icon-left">
-                                                        <label for="first-name-icon">Middle Name</label>
-                                                        <div class="position-relative">
-                                                            <input type="text" class="form-control"
-                                                                placeholder="middle name" id="first-name-icon"
-                                                                value="M.">
-                                                            <div class="form-control-icon">
-                                                                <i class="fa fa-user"></i>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4 col-12">
-                                                    <div class="form-group has-icon-left">
-                                                        <label for="first-name-icon">Last Name</label>
-                                                        <div class="position-relative">
-                                                            <input type="text" class="form-control"
-                                                                placeholder="last name" id="first-name-icon"
-                                                                value="Doe">
-                                                            <div class="form-control-icon">
-                                                                <i class="fa fa-user"></i>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-3 col-12">
-                                                    <div class="form-group has-icon-left">
-                                                        <label for="first-name-icon">Age</label>
-                                                        <div class="position-relative">
-                                                            <input type="text" class="form-control" placeholder="age"
-                                                                id="first-name-icon" value="24">
-                                                            <div class="form-control-icon">
-                                                                <i class="fa fa-user"></i>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-3 col-12">
-                                                    <div class="form-group has-icon-left">
-                                                        <label for="first-name-icon">Email</label>
-                                                        <div class="position-relative">
-                                                            <input type="text" class="form-control" placeholder="email"
-                                                                id="first-name-icon" value="john@gmail.com">
-                                                            <div class="form-control-icon">
-                                                                <i class="fa fa-envelope"></i>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-3 col-12">
-                                                    <div class="form-group has-icon-left">
-                                                        <label for="first-name-icon">Contact</label>
-                                                        <div class="position-relative">
-                                                            <input type="text" class="form-control"
-                                                                placeholder="contact" id="first-name-icon"
-                                                                value="091234567898">
-                                                            <div class="form-control-icon">
-                                                                <i class="fa fa-phone"></i>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-3 col-12">
-                                                    <div class="form-group has-icon-left">
-                                                        <label for="first-name-icon">Profile</label>
-                                                        <div class="position-relative">
-                                                            <input type="file" class="form-control" placeholder=""
-                                                                id="first-name-icon">
-                                                            <div class="form-control-icon">
-                                                                <i class="fa fa-user"></i>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="country-floating">Deapartment</label>
-                                                        <fieldset class="form-group">
-                                                            <select class="form-select" id="basicSelect">
-                                                                <option>IT</option>
-                                                                <option>ENGINEERING</option>
-                                                                <option>HR</option>
-                                                                <option>FINANCE</option>
-                                                            </select>
-                                                        </fieldset>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="company-column">Designation</label>
-                                                        <fieldset class="form-group">
-                                                            <select class="form-select" id="basicSelect">
-                                                                <option>IT</option>
-                                                                <option>MANAGER</option>
-                                                                <option>SUPERVISOR</option>
-                                                                <option>ENGINEER</option>
-                                                            </select>
-                                                        </fieldset>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6 col-12">
-                                                    <div class="form-group has-icon-left">
-                                                        <label for="first-name-icon">Username</label>
-                                                        <div class="position-relative">
-                                                            <input type="text" class="form-control"
-                                                                placeholder="username" id="first-name-icon">
-                                                            <div class="form-control-icon">
-                                                                <i class="fa fa-user"></i>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6 col-12">
-                                                    <div class="form-group has-icon-left">
-                                                        <label for="first-name-icon">Password</label>
-                                                        <div class="position-relative">
-                                                            <input type="password" class="form-control"
-                                                                placeholder="passsword" id="first-name-icon">
-                                                            <div class="form-control-icon">
-                                                                <i class="fa fa-key"></i>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-12 d-flex justify-content-end">
-                                                    <button type="submit"
-                                                        class="btn btn-primary me-1 mb-1">Submit</button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                <!-- // Basic multiple Column Form section end -->
-            </div>
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
 
-        </div>
-    </div>
-    <script src="assets/js/feather-icons/feather.min.js"></script>
-    <script src="assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-    <script src="assets/js/app.js"></script>
+--
+-- Database: `db_leave`
+-- Table structure for table `tbl_approval`
+--
 
-    <script src="assets/js/main.js"></script>
-</body>
+CREATE TABLE `tbl_approval` (
+  `a_id` int(11) NOT NULL,
+  `emp_id` int(11) DEFAULT NULL,
+  `l_id` int(11) DEFAULT NULL,
+  `st_date` date DEFAULT NULL,
+  `to_date` date DEFAULT NULL,
+  `reason` varchar(100) NOT NULL,
+  `status` int(3) DEFAULT NULL,
+  `daydiff` float NOT NULL,
+  `appliedtime` varchar(30) NOT NULL,
+  `remark` varchar(150) NOT NULL,
+  `document` longblob NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-</html>
+--
+-- Table structure for table `tbl_deanrecommendation`
+CREATE TABLE `tbl_deanrecommendation` (
+  `dr_id` int(11) NOT NULL,
+  `r_id` int(11) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `comments` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- Table structure for table `tbl_department`
+--
+
+CREATE TABLE `tbl_department` (
+  `dept_id` int(11) NOT NULL,
+  `deptname` varchar(30) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_department`
+--
+
+INSERT INTO `tbl_department` (`dept_id`, `deptname`) VALUES
+(1, 'MCA'),
+(2, 'CSE'),
+(3, 'IT'),
+(4, 'EC'),
+
+CREATE TABLE `tbl_docs` (
+  `doc_id` int(11) NOT NULL,
+  `req_id` int(11) DEFAULT NULL,
+  `emp_id` int(11) NOT NULL,
+  `doc1` longblob DEFAULT NULL,
+  `doc2` longblob DEFAULT NULL,
+  `reason` varchar(100) NOT NULL,
+  `status` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+-- Dumping data for table `tbl_docs`
+-- Table structure for table `tbl_employee`
+--
+
+CREATE TABLE `tbl_employee` (
+  `emp_id` int(11) DEFAULT NULL,
+  `empname` varchar(40) DEFAULT NULL,
+  `email` varchar(40) DEFAULT NULL,
+  `phone` varchar(15) DEFAULT NULL,
+  `doj` date DEFAULT NULL,
+  `status` tinyint(1) DEFAULT NULL,
+  `dept_id` int(11) DEFAULT NULL,
+  `post_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- Dumping data for table `tbl_employee`
+
+INSERT INTO `tbl_employee` (`emp_id`, `empname`, `email`, `phone`, `doj`, `status`, `dept_id`, `post_id`) VALUES
+(10001, 'Dr. Lillykutty Jacob', 'prinicipal@ajce.in', '8745896891', '2022-02-01', 1, 7, 1),
+
+-- Table structure for table `tbl_hodrecommendation`
+--
+
+CREATE TABLE `tbl_hodrecommendation` (
+  `r_id` int(11) NOT NULL,
+  `req_id` int(11) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `comments` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- Table structure for table `tbl_leave`
+--
+
+CREATE TABLE `tbl_leave` (
+  `req_id` int(11) NOT NULL,
+  `emp_id` int(11) DEFAULT NULL,
+  `l_id` int(11) DEFAULT NULL,
+  `session` varchar(10) NOT NULL,
+  `st_date` date NOT NULL,
+  `to_date` date DEFAULT NULL,
+  `document` blob DEFAULT NULL,
+  `reason` varchar(150) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `daydiff` float NOT NULL,
+  `appliedtime` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+-- Table structure for table `tbl_leavetype`
+--
+
+CREATE TABLE `tbl_leavetype` (
+  `l_id` int(11) NOT NULL,
+  `leavetype` varchar(30) DEFAULT NULL,
+  `description` varchar(100) DEFAULT NULL,
+  `totalleave` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+-- Table structure for table `tbl_login`
+--
+
+CREATE TABLE `tbl_login` (
+  `emp_id` int(11) NOT NULL,
+  `password` varchar(60) DEFAULT NULL,
+  `Gcode` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+-- Table structure for table `tbl_post`
+--
+
+CREATE TABLE `tbl_post` (
+  `post_id` int(11) NOT NULL,
+  `post_name` varchar(30) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_post`
+--
+
+INSERT INTO `tbl_post` (`post_id`, `post_name`) VALUES
+(1, 'principal'),
+(2, 'academicdean'),
+(3, 'hod'),
+(4, 'employee');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `tbl_approval`
+--
+ALTER TABLE `tbl_approval`
+  ADD PRIMARY KEY (`a_id`),
+  ADD KEY `emp_id` (`emp_id`),
+  ADD KEY `l_id` (`l_id`);
+
+--
+-- Indexes for table `tbl_deanrecommendation`
+--
+ALTER TABLE `tbl_deanrecommendation`
+  ADD PRIMARY KEY (`dr_id`),
+  ADD KEY `r_id` (`r_id`);
+
+--
+-- Indexes for table `tbl_department`
+--
+ALTER TABLE `tbl_department`
+  ADD PRIMARY KEY (`dept_id`);
+
+--
+-- Indexes for table `tbl_docs`
+--
+ALTER TABLE `tbl_docs`
+  ADD PRIMARY KEY (`doc_id`),
+  ADD KEY `req_id` (`req_id`);
+
+--
+-- Indexes for table `tbl_employee`
+--
+ALTER TABLE `tbl_employee`
+  ADD UNIQUE KEY `unique_phone` (`phone`),
+  ADD UNIQUE KEY `unique_email` (`email`),
+  ADD KEY `dept_id` (`dept_id`),
+  ADD KEY `post_id` (`post_id`),
+  ADD KEY `fk_emp` (`emp_id`);
+
+--
+-- Indexes for table `tbl_hodrecommendation`
+--
+ALTER TABLE `tbl_hodrecommendation`
+  ADD PRIMARY KEY (`r_id`),
+  ADD KEY `req_id` (`req_id`);
+
+--
+-- Indexes for table `tbl_leave`
+--
+ALTER TABLE `tbl_leave`
+  ADD PRIMARY KEY (`req_id`),
+  ADD KEY `emp_id` (`emp_id`),
+  ADD KEY `l_id` (`l_id`);
+
+--
+-- Indexes for table `tbl_leavetype`
+--
+ALTER TABLE `tbl_leavetype`
+  ADD PRIMARY KEY (`l_id`),
+  ADD UNIQUE KEY `leavetype` (`leavetype`);
+
+--
+-- Indexes for table `tbl_login`
+--
+ALTER TABLE `tbl_login`
+  ADD PRIMARY KEY (`emp_id`);
+
+--
+-- Indexes for table `tbl_post`
+--
+ALTER TABLE `tbl_post`
+  ADD PRIMARY KEY (`post_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `tbl_approval`
+--
+ALTER TABLE `tbl_approval`
+  MODIFY `a_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+
+--
+-- AUTO_INCREMENT for table `tbl_deanrecommendation`
+--
+ALTER TABLE `tbl_deanrecommendation`
+  MODIFY `dr_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT for table `tbl_department`
+--
+ALTER TABLE `tbl_department`
+  MODIFY `dept_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `tbl_docs`
+--
+ALTER TABLE `tbl_docs`
+  MODIFY `doc_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `tbl_hodrecommendation`
+--
+ALTER TABLE `tbl_hodrecommendation`
+  MODIFY `r_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
+-- AUTO_INCREMENT for table `tbl_leave`
+--
+ALTER TABLE `tbl_leave`
+  MODIFY `req_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=144;
+
+--
+-- AUTO_INCREMENT for table `tbl_leavetype`
+--
+ALTER TABLE `tbl_leavetype`
+  MODIFY `l_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
+-- AUTO_INCREMENT for table `tbl_login`
+--
+ALTER TABLE `tbl_login`
+  MODIFY `emp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=98746;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `tbl_approval`
+--
+ALTER TABLE `tbl_approval`
+  ADD CONSTRAINT `tbl_approval_ibfk_1` FOREIGN KEY (`emp_id`) REFERENCES `tbl_login` (`emp_id`),
+  ADD CONSTRAINT `tbl_approval_ibfk_2` FOREIGN KEY (`l_id`) REFERENCES `tbl_leavetype` (`l_id`);
+
+--
+-- Constraints for table `tbl_deanrecommendation`
+--
+ALTER TABLE `tbl_deanrecommendation`
+  ADD CONSTRAINT `tbl_deanrecommendation_ibfk_1` FOREIGN KEY (`r_id`) REFERENCES `tbl_hodrecommendation` (`r_id`);
+
+--
+-- Constraints for table `tbl_docs`
+--
+ALTER TABLE `tbl_docs`
+  ADD CONSTRAINT `tbl_docs_ibfk_1` FOREIGN KEY (`req_id`) REFERENCES `tbl_leave` (`req_id`);
+
+--
+-- Constraints for table `tbl_employee`
+--
+ALTER TABLE `tbl_employee`
+  ADD CONSTRAINT `fk_emp` FOREIGN KEY (`emp_id`) REFERENCES `tbl_login` (`emp_id`),
+  ADD CONSTRAINT `tbl_employee_ibfk_2` FOREIGN KEY (`dept_id`) REFERENCES `tbl_department` (`dept_id`),
+  ADD CONSTRAINT `tbl_employee_ibfk_3` FOREIGN KEY (`post_id`) REFERENCES `tbl_post` (`post_id`);
+
+--
+-- Constraints for table `tbl_hodrecommendation`
+--
+ALTER TABLE `tbl_hodrecommendation`
+  ADD CONSTRAINT `tbl_hodrecommendation_ibfk_1` FOREIGN KEY (`req_id`) REFERENCES `tbl_leave` (`req_id`);
+
+--
+-- Constraints for table `tbl_leave`
+--
+ALTER TABLE `tbl_leave`
+  ADD CONSTRAINT `tbl_leave_ibfk_1` FOREIGN KEY (`emp_id`) REFERENCES `tbl_login` (`emp_id`),
+  ADD CONSTRAINT `tbl_leave_ibfk_2` FOREIGN KEY (`l_id`) REFERENCES `tbl_leavetype` (`l_id`);
+COMMIT;

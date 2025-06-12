@@ -240,6 +240,26 @@
     </div>
 </div>
 
+<!-- Chart.js Charts -->
+<div class="row mt-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h4>Available Leave Distribution</h4>
+                <canvas id="leavePieChart"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h4>Monthly Leaves Taken</h4>
+                <canvas id="leaveBarChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
                   </div>
                </section>
             </div>
@@ -252,6 +272,55 @@
       <script src="assets/vendors/apexcharts/apexcharts.min.js"></script>
       <script src="assets/js/pages/dashboard.js"></script>
       <script src="assets/js/main.js"></script>
+      <script>
+    // Pie Chart for Available Leave Distribution
+    var leavePieCtx = document.getElementById('leavePieChart').getContext('2d');
+    var leavePieChart = new Chart(leavePieCtx, {
+        type: 'pie',
+        data: {
+            labels: ['Casual', 'Vacation', 'Compensatory'],
+            datasets: [{
+                data: [<?php echo $casualcount; ?>, <?php echo $vacationcount; ?>, <?php echo $compcount; ?>],
+                backgroundColor: ['green', 'blue', 'orange']
+            }]
+        },
+        options: {
+            responsive: true
+        }
+    });
+
+    // Bar Chart for Monthly Leaves Taken
+    var leaveBarCtx = document.getElementById('leaveBarChart').getContext('2d');
+    var leaveBarChart = new Chart(leaveBarCtx, {
+        type: 'bar',
+        data: {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            datasets: [{
+                label: 'Leaves Taken',
+                data: <?php
+                    $monthlyLeaves = array_fill(0, 12, 0);
+                    $sql = "SELECT MONTH(st_date) as month, SUM(daydiff) as total FROM tbl_approval WHERE status = 1 AND emp_id = " . $_SESSION["empid"] . " GROUP BY MONTH(st_date)";
+                    $res = $conn->query($sql);
+                    while($row = $res->fetch_assoc()) {
+                        $monthlyLeaves[$row['month'] - 1] = $row['total'];
+                    }
+                    echo json_encode($monthlyLeaves);
+                ?>,
+                backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
    </body>
 </html>
   <?php   

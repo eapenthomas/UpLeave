@@ -39,25 +39,16 @@ if(isset($_POST['submit'])){
          $fileDestination = 'docu/' . $filename;
 
     
-    // Move uploaded file to destination directory
     if(move_uploaded_file($tempFilePath, $fileDestination)) {
-        // File uploaded successfully, proceed with form submission
-        // Now you can use $fileDestination to store the file path in your database
-
-        // Proceed with form submission
+      
     } else {
-        // Failed to move file, handle the error accordingly
         $leaveFailureMessage = 'Failed to upload file.';
     }
 } 
-
-    // Check if start date is Sunday
     if (date('D', strtotime($fromd)) === 'Sun') {
         $leaveFailureMessage = 'Leaves cannot be applied on Sundays. Please select another date.';
     } 
-    // elseif(empty($lid) || empty($fromd) || empty($tod)) {
-    //     $leaveFailureMessage = 'Leave type, start date, and end date cannot be empty.';
-    // } 
+ 
     elseif(strtotime($fromd) < strtotime(date('Y-m-d'))) {
         $leaveFailureMessage = 'Cannot apply leave for previous dates.';
     } 
@@ -65,7 +56,19 @@ if(isset($_POST['submit'])){
     //     $leaveFailureMessage = 'End date cannot be earlier than start date.';
     // } 
     else {
-        $sql = "INSERT INTO tbl_leave (emp_id, l_id,session,st_date, to_date, document,reason,status,appliedtime,daydiff) VALUES ('$empid', '$lid', '$session', '$fromd', '$tod', '$fileDestination','$reason','0','$currentDateTime','$daysDiff ');";
+        $sql = "INSERT INTO tbl_leave (emp_id, l_id, session, st_date, to_date, document, reason, status, appliedtime, daydiff) 
+                VALUES (
+                    '" . mysqli_real_escape_string($conn, $empid) . "', 
+                    '" . mysqli_real_escape_string($conn, $lid) . "', 
+                    '" . mysqli_real_escape_string($conn, $session) . "', 
+                    '" . mysqli_real_escape_string($conn, $fromd) . "', 
+                    '" . mysqli_real_escape_string($conn, $tod) . "', 
+                    '" . mysqli_real_escape_string($conn, $fileDestination) . "', 
+                    '" . mysqli_real_escape_string($conn, $reason) . "', 
+                    '0', 
+                    '" . mysqli_real_escape_string($conn, $currentDateTime) . "', 
+                    '" . mysqli_real_escape_string($conn, $daysDiff) . "'
+                )";
         
         if($conn->query($sql) == true){
            // $leaveSuccessMessage = 'Leave applied successfully';
@@ -74,8 +77,51 @@ if(isset($_POST['submit'])){
             <!DOCTYPE html>
             <html lang="en">
             <head>
-                 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
-                <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leave Apply</title>
+    <link rel="stylesheet" href="assets/css/bootstrap.css">
+    <link rel="stylesheet" href="assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
+    <link rel="stylesheet" href="assets/css/app.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+    $(document).ready(function() {
+        $('#enhance-btn').on('click', function () {
+            const reason = $('#reason').val().trim();
+            if (!reason) {
+                alert("Enter a reason first");
+                return;
+            }
+
+            $.ajax({
+                url: 'enhance_reason.php',
+                type: 'POST',
+                data: { reason: reason },
+                success: function (response) {
+                    let parsed;
+                    try {
+                        parsed = typeof response === 'string' ? JSON.parse(response) : response;
+                    } catch (e) {
+                        alert('Invalid JSON response');
+                        return;
+                    }
+
+                    if (parsed.error) {
+                        alert('Error: ' + parsed.error);
+                    } else if (parsed.enhanced_text) {
+                        $('#reason').val(parsed.enhanced_text);
+                    } else {
+                        alert('Unexpected response from API');
+                    }
+                },
+                error: function () {
+                    alert('Failed to reach enhancement service.');
+                }
+            });
+        });
+    });
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
             </head>
             <body>
             <script>
@@ -326,10 +372,20 @@ if(isset($_POST['submit'])){
         <div class="col-12">
             <div class="form-group has-icon-left">
                 <label for="absence-reason">* Reason for Absence</label>
-                <textarea  class="form-control" required name="reason" id="reason" rows="4" style="width: 70%; max-width: 70%;" required></textarea>
+                <textarea class="form-control" required name="reason" id="reason" rows="4" style="width: 70%; max-width: 70%;" required></textarea>
+                <div class="mt-2">
+                    <button type="button" class="btn btn-secondary" id="enhance-btn">
+                        <i class="fas fa-magic me-1"></i> Enhance Reason with AI
+                    </button>
+                    <div id="enhance-loading" class="spinner-border text-primary ms-2" role="status" style="display: none;">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <span id="enhance-status" class="ms-2" style="display: none;">Enhancing your reason...</span>
+                </div>
             </div>
         </div>
     </div>
+
     <!-- Submit Button -->
     <div class="row">
         <div class="col-12 d-flex justify-content-end">
@@ -352,106 +408,141 @@ if(isset($_POST['submit'])){
         </div>
     </div>
     <script>
-        // Function to display the additional select box when leave type other than "Vacation Leave" is selected
-function displayAdditionalOptions() {
-    var leaveType = document.getElementById("leaveType").value;
-    var additionalOptionsRow = document.getElementById("additionalOptionsRow");
-    
-    // If leave type is not "Vacation Leave", display the additional select box
-    if (leaveType !== "2") {
-        additionalOptionsRow.style.display = "block";
-    } else {
-        additionalOptionsRow.style.display = "none";
+    function displayAdditionalOptions() {
+        const leaveType = document.getElementById("leaveType").value;
+        document.getElementById("additionalOptionsRow").style.display = (leaveType !== "2") ? "block" : "none";
     }
-}
-// Function to handle change in the leave option select box
-function handleLeaveOptionChange() {
-    var leaveOption = document.getElementById("additionalOptions").value;
-    var fromDateLabel = document.querySelector("label[for='from-date']");
-    var toDateInput = document.getElementById("to-date").parentNode.parentNode;
-    
-    // If leave option is FN or AN, hide the to date input and update the label for from date
-    if (leaveOption === "FN" || leaveOption === "AN") {
-        toDateInput.style.display = "none";
-        fromDateLabel.textContent = "Select Date";
-    } else {
-        toDateInput.style.display = "block";
-        fromDateLabel.textContent = "From Date";
+
+    function handleLeaveOptionChange() {
+        const option = document.getElementById("additionalOptions").value;
+        const toDateInput = document.getElementById("to-date").parentNode.parentNode;
+        document.querySelector("label[for='from-date']").textContent = (option === "FN" || option === "AN") ? "Select Date" : "From Date";
+        toDateInput.style.display = (option === "FN" || option === "AN") ? "none" : "block";
     }
-}
 
-// Event listener for change in leave option select box
-document.getElementById("additionalOptions").addEventListener("change", handleLeaveOptionChange);
+    function validateLeaveType() {
+        const leaveType = document.getElementById('leaveType').value;
+        document.getElementById('leaveTypeValidation').textContent = (leaveType === "Select Leave Type") ? "Please select a leave type." : "";
+    }
 
-// Event listener for leave type select box
-document.getElementById("leaveType").addEventListener("change", displayAdditionalOptions);
+    function validateFromDate() {
+        const fromDate = document.getElementById('from-date').value;
+        document.getElementById('fromDateValidation').textContent = (!fromDate) ? "Please select a start date." : "";
+    }
 
+    function validateToDate() {
+        const fromDate = document.getElementById('from-date').value;
+        const toDate = document.getElementById('to-date').value;
+        let message = "";
+        if (!toDate) message = "Please select an end date.";
+        else if (toDate < fromDate) message = "End date cannot be earlier than start date.";
+        document.getElementById('toDateValidation').textContent = message;
+    }
 
-        // Dynamic validation messages
-        document.getElementById('leaveType').addEventListener('blur', validateLeaveType);
-        document.getElementById('from-date').addEventListener('blur', validateFromDate);
-        document.getElementById('to-date').addEventListener('blur', validateToDate);
+    function validateForm() {
+        validateLeaveType();
+        validateFromDate();
+        validateToDate();
+        const leaveType = document.getElementById('leaveType').value;
+        const fromDate = document.getElementById('from-date').value;
+        if (leaveType === "Select Leave Type" || !fromDate) return false;
+        if (new Date(fromDate) < new Date()) return false;
+        return true;
+    }
 
-        function validateLeaveType() {
-            var leaveType = document.getElementById('leaveType').value;
-            var leaveTypeValidation = document.getElementById('leaveTypeValidation');
-            if (leaveType === "Select Leave Type") {
-                leaveTypeValidation.textContent = "Please select a leave type.";
-            } else {
-                leaveTypeValidation.textContent = "";
-            }
-        }
+    document.addEventListener('DOMContentLoaded', () => {
+        document.getElementById("additionalOptions").addEventListener("change", handleLeaveOptionChange);
+        document.getElementById("leaveType").addEventListener("change", displayAdditionalOptions);
+        document.getElementById("leaveType").addEventListener("blur", validateLeaveType);
+        document.getElementById("from-date").addEventListener("blur", validateFromDate);
+        document.getElementById("to-date").addEventListener("blur", validateToDate);
 
-        function validateFromDate() {
-            var fromDate = document.getElementById('from-date').value;
-            var fromDateValidation = document.getElementById('fromDateValidation');
-            if (fromDate === "") {
-                fromDateValidation.textContent = "Please select a start date.";
-            } else {
-                fromDateValidation.textContent = "";
-            }
-        }
+        
+    });
+</script>
 
-        function validateToDate() {
-            var fromDate = document.getElementById('from-date').value;
-            var toDate = document.getElementById('to-date').value;
-            var toDateValidation = document.getElementById('toDateValidation');
-            if (toDate === "") {
-                toDateValidation.textContent = "Please select an end date.";
-            } else if (toDate < fromDate) {
-                toDateValidation.textContent = "End date cannot be earlier than start date.";
-            } else {
-                toDateValidation.textContent = "";
-            }
-        }
-
-        function validateForm() {
-            validateLeaveType();
-            validateFromDate();
-//validateToDate();
-
-            var leaveType = document.getElementById('leaveType').value;
-            var fromDate = document.getElementById('from-date').value;
-            // var toDate = document.getElementById('to-date').value;
-
-            if (leaveType === "Select Leave Type" || fromDate === "" ) {
-                return false;
-            }
-
-            var today = new Date();
-            var selectedDate = new Date(fromDate);
-
-            if (selectedDate < today) {
-                return false;
-            }
-
-            return true;
-        }
-    </script>
     <script src="assets/js/feather-icons/feather.min.js"></script>
     <script src="assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="assets/js/app.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <script src="assets/js/main.js"></script>
+    <script src="assets/js/enhance-reason.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            const enhanceBtn = $('#enhance-btn');
+            const loadingSpinner = $('#enhance-loading');
+            const statusText = $('#enhance-status');
+            const reasonTextarea = $('#reason');
+
+            function resetLoadingState() {
+                enhanceBtn.prop('disabled', false);
+                loadingSpinner.hide();
+                statusText.hide();
+                enhanceBtn.html('<i class="fas fa-magic me-1"></i> Enhance Reason with AI');
+            }
+
+            enhanceBtn.on('click', function() {
+                const reason = reasonTextarea.val().trim();
+                
+                if (!reason) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Empty Reason',
+                        text: 'Please enter a reason first before enhancing.',
+                        confirmButtonColor: '#3085d6'
+                    });
+                    return;
+                }
+
+                // Show loading state
+                enhanceBtn.prop('disabled', true);
+                loadingSpinner.show();
+                statusText.show();
+                enhanceBtn.html('<i class="fas fa-spinner fa-spin me-1"></i> Enhancing...');
+
+                $.ajax({
+                    url: 'reason_enhancer.php',
+                    type: 'POST',
+                    data: { reason: reason },
+                    dataType: 'json',
+                    success: function(response) {
+                        resetLoadingState(); // Reset loading state before processing response
+                        
+                        if (response.error) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Enhancement Failed',
+                                text: response.error,
+                                confirmButtonColor: '#3085d6'
+                            });
+                        } else if (response.enhanced_text) {
+                            reasonTextarea.val(response.enhanced_text);
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Reason Enhanced',
+                                text: 'Your leave reason has been professionally enhanced!',
+                                confirmButtonColor: '#3085d6',
+                                timer: 2000,
+                                showConfirmButton: false
+                            });
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error:', error);
+                        resetLoadingState(); // Reset loading state on error
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Failed to enhance reason. Please try again later.',
+                            confirmButtonColor: '#3085d6'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
 <?php
