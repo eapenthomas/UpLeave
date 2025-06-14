@@ -9,6 +9,7 @@ The University Leave Management System is a full-stack web application that stre
 ## ✨ Key Features
 
 - **Role-Based Access Control**
+
   - Employee self-service portal
   - Department Head (HOD) dashboard
   - Dean's approval interface
@@ -16,6 +17,7 @@ The University Leave Management System is a full-stack web application that stre
   - Administrative control panel
 
 - **Leave Management**
+
   - Multiple leave types (Study, Maternity, Duty, Long-term)
   - Leave balance tracking
   - Leave history and status monitoring
@@ -23,11 +25,13 @@ The University Leave Management System is a full-stack web application that stre
   - Leave cancellation functionality
 
 - **AI-Enhanced Applications**
+
   - OpenAI-powered leave reason enhancement
   - Professional language suggestions
   - Grammar and clarity improvements
 
 - **Security Features**
+
   - Secure authentication system
   - OTP-based password reset
   - Session management
@@ -42,6 +46,7 @@ The University Leave Management System is a full-stack web application that stre
 ## 🛠️ Technology Stack
 
 ### Frontend
+
 - HTML5
 - CSS3
 - JavaScript
@@ -49,16 +54,19 @@ The University Leave Management System is a full-stack web application that stre
 - Chart.js (for analytics)
 
 ### Backend
+
 - PHP 7.4+
 - MySQL Database
 - TCPDF (for PDF generation)
 
 ### AI & Integration
+
 - OpenAI API
 - Symfony HTTP Client
 - PHPDotEnv
 
 ### Security
+
 - Session-based authentication
 - Password hashing
 - Input validation
@@ -67,12 +75,14 @@ The University Leave Management System is a full-stack web application that stre
 ## 🚀 Setup Instructions
 
 1. **Prerequisites**
+
    - PHP 7.4 or higher
    - MySQL 5.7+
    - Composer
    - Web server (Apache/Nginx)
 
 2. **Installation**
+
    ```bash
    # Clone the repository
    git clone [repository-url]
@@ -96,17 +106,20 @@ The University Leave Management System is a full-stack web application that stre
 ## 📱 Usage
 
 1. **Employee Portal**
+
    - Login with credentials
    - Apply for leave
    - Track application status
    - View leave balance
 
 2. **HOD Interface**
+
    - Review department leave applications
    - Approve/reject requests
    - Generate department reports
 
 3. **Dean's Dashboard**
+
    - Cross-department oversight
    - Leave approval workflow
    - Analytics and reporting
@@ -142,6 +155,14 @@ The University Leave Management System is a full-stack web application that stre
 - Advanced analytics dashboard
 - Bulk leave processing
 - API development for third-party integration
+
+## 📄 Test User credentials
+
+role - Employee ID - password
+Principal - 10001 - principal123
+Academic Dean - 10002 - dean123
+Head of Department - 10005 - hod123
+employee - 10008 - Edith07!
 
 ## 📄 License
 

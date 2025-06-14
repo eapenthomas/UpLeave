@@ -241,34 +241,8 @@ if (isset($_POST['submit'])) {
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Your custom JavaScript -->
     <script>
-        // function validateEmail() {
-        //     var emailInput = document.getElementById('floatingInput').value.trim();
-        //     var errorMessageDiv = document.getElementById('errorMessage');
 
-        //     var emailRegex = /^[a-zA-Z]+[a-zA-Z0-9._]*@[a-zA-Z]+\.[a-zA-Z]{2,4}$/;
-
-        //     if (emailInput.length < 4 || !emailRegex.test(emailInput)) {
-        //         errorMessageDiv.textContent = 'Invalid email format';
-        //     } else {
-        //         errorMessageDiv.textContent = '';
-        //     }
-        // }
-
-      //  function validateForm() {
-            // var emailInput = document.getElementById('floatingInput').value.trim();
-            // var errorMessageDiv = document.getElementById('errorMessage');
-
-            // var emailRegex = /^[a-zA-Z]+[a-zA-Z0-9._]*@[a-zA-Z]+\.[a-zA-Z]{2,4}$/;
-
-            // if (emailInput.length < 4 || !emailRegex.test(emailInput)) {
-            //     errorMessageDiv.textContent = 'Invalid email address';
-            //     return false;
-            // }
-
-            // return true;
-   //     }
     </script>
 </body>
 
