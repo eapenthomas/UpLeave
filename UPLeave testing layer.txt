@@ -1,0 +1,22 @@
+You're working on a PHP-based full-stack leave management system named "UPLeave." The project includes core functionalities like:
+
+- Employee login (session + OTP)
+- Leave application submission
+- Role-based approval workflow (Employee, HOD, Dean, Principal)
+- Smart Leave Reason Enhancer using DeepSeek API
+- Leave history stored in MySQL
+- Chart.js visualizations for analytics
+
+Your task: Help me implement a **PHPUnit-based testing layer** for this project.
+
+1. First, identify and list **5 key backend PHP functions or components** that are suitable for unit testing (e.g., leave date validation, leave quota check, etc.).
+
+2. For each identified component, **write a PHPUnit test case** (assuming the functions are modular or in separate files).
+
+3. Provide **step-by-step instructions** to set up PHPUnit using Composer, compatible with a local XAMPP/LAMP environment.
+
+4. Show how to **structure a `tests/` folder** inside the project with sample test files.
+
+5. Suggest how I can add a test summary to the README, and how to display test status with a badge if hosted on GitHub.
+
+Assume I am a beginner to testing in PHP, so explain clearly and practically. The project is in plain PHP (no Laravel or Symfony).
